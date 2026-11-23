@@ -1,0 +1,392 @@
+{
+   "_links": {
+      "root": {
+         "href": "/",
+         "name": "",
+         "templated": false
+      },
+      "self": {
+         "href": "/scans/cda21325-187f-4edd-a0cb-653ded85fe4a/findings",
+         "name": "",
+         "templated": false
+      },
+      "help": {
+         "href": "https://docs.veracode.com/",
+         "name": "",
+         "templated": false
+      },
+      "create": {
+         "href": "",
+         "name": "",
+         "templated": false
+      },
+      "start": {
+         "href": "",
+         "name": "",
+         "templated": false
+      },
+      "details": {
+         "href": "",
+         "name": "",
+         "templated": false
+      },
+      "upload": {
+         "href": "",
+         "name": "",
+         "templated": false
+      },
+      "cancel": {
+         "href": "",
+         "name": "",
+         "templated": false
+      }
+   },
+   "scan_id": "cda21325-187f-4edd-a0cb-653ded85fe4a",
+   "scan_status": "SUCCESS",
+   "message": "Scan successful. Results size: 15406 bytes",
+   "modules": [
+      "java-cwe209-combined-1.0-SNAPSHOT.jar"
+   ],
+   "modules_count": 1,
+   "findings": [
+      {
+         "title": "java.io.PrintWriter.println",
+         "issue_id": 1005,
+         "image_path": "file:/tmp/tmpslyp5c17/binary/java-cwe209-combined-1.0-SNAPSHOT.jar#zip:SystemPropertyServlet_Test05",
+         "gob": "B",
+         "severity": 2,
+         "issue_type_id": "taint",
+         "issue_type": "Information Exposure Through an Error Message",
+         "cwe_id": "209",
+         "exploit_level": "0",
+         "display_text": "\u003cspan\u003e The application calls the java.io.PrintWriter.println() function, which may expose information about the application logic or other details such as the names and versions of the application container and associated components.  This information can be useful in executing other attacks and can also enable the attacker to target known vulnerabilities in application components. The first argument to println() contains data from an error message (possibly containing untrusted data). The data from an error message (possibly containing untrusted data) originated from earlier calls to java.lang.NullPointerException.getMessage, and java.lang.Throwable.getMessage.\u003c/span\u003e \u003cspan\u003eEnsure that error codes or other messages returned to end users are not overly verbose.  Sanitize all messages of any sensitive information that is not absolutely necessary.\u003c/span\u003e \u003cspan\u003eReferences: \u003ca href=\"https://cwe.mitre.org/data/definitions/209.html\"\u003eCWE-209\u003c/a\u003e\u003c/span\u003e",
+         "files": {
+            "source_file": {
+               "file": "SystemPropertyServlet_Test05.java",
+               "upload_file": "SystemPropertyServlet_Test05.java",
+               "line": 13,
+               "function_name": "doGet",
+               "qualified_function_name": "SystemPropertyServlet_Test05.doGet",
+               "function_prototype": "void doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)",
+               "scope": "SystemPropertyServlet_Test05"
+            }
+         },
+         "flaw_match": {
+            "procedure_hash": "2379003389",
+            "prototype_hash": "778358062",
+            "flaw_hash": "566550496",
+            "flaw_hash_count": 1,
+            "flaw_hash_ordinal": 1,
+            "cause_hash": "3486251870",
+            "cause_hash_count": 1,
+            "cause_hash_ordinal": 1,
+            "cause_hash2": "2344501566",
+            "cause_hash2_ordinal": "1"
+         },
+         "stack_dumps": {
+            "stack_dump": [
+               {
+                  "Frame": [
+                     {
+                        "FrameId": "0",
+                        "FunctionName": "doGet",
+                        "SourceFile": "SystemPropertyServlet_Test05.java",
+                        "SourceLine": "12",
+                        "SourceFileId": "6",
+                        "StatementText": {},
+                        "VarNames": "!jdk11_concat(\"Error occurred: \\u0001\", /**X-VC scoperef targetid=\"40046\" */e/**X-VC /scoperef */.getMessage())",
+                        "QualifiedFunctionName": "SystemPropertyServlet_Test05.doGet",
+                        "FunctionPrototype": "void doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)",
+                        "RelativeLocation": "89"
+                     },
+                     {
+                        "FrameId": "1",
+                        "FunctionName": "doGet",
+                        "SourceFile": "SystemPropertyServlet_Test05.java",
+                        "SourceLine": "12",
+                        "SourceFileId": "6",
+                        "StatementText": {},
+                        "VarNames": "/**X-VC scoperef targetid=\"40046\" */e/**X-VC /scoperef */.getMessage()",
+                        "QualifiedFunctionName": "SystemPropertyServlet_Test05.doGet",
+                        "FunctionPrototype": "void doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)",
+                        "RelativeLocation": "89"
+                     }
+                  ]
+               }
+            ]
+         },
+         "flaw_details_link": "https://downloads.veracode.com/securityscan/cwe/v4/java/209.html"
+      },
+      {
+         "title": "java.lang.Throwable.printStackTrace",
+         "issue_id": 1001,
+         "image_path": "file:/tmp/tmpslyp5c17/binary/java-cwe209-combined-1.0-SNAPSHOT.jar#zip:StackTraceServlet_Test04",
+         "gob": "B",
+         "severity": 2,
+         "issue_type_id": "taint",
+         "issue_type": "Information Exposure Through an Error Message",
+         "cwe_id": "209",
+         "exploit_level": "0",
+         "display_text": "\u003cspan\u003e The application calls the java.lang.Throwable.printStackTrace() function, which may expose information about the application logic or other details such as the names and versions of the application container and associated components.  This information can be useful in executing other attacks and can also enable the attacker to target known vulnerabilities in application components. printStackTrace() was called on the e object, which contains data from an error message (possibly containing untrusted data). The data from an error message (possibly containing untrusted data) originated from an earlier call to java.lang.Throwable.printStackTrace.\u003c/span\u003e \u003cspan\u003eEnsure that error codes or other messages returned to end users are not overly verbose.  Sanitize all messages of any sensitive information that is not absolutely necessary.\u003c/span\u003e \u003cspan\u003eReferences: \u003ca href=\"https://cwe.mitre.org/data/definitions/209.html\"\u003eCWE-209\u003c/a\u003e\u003c/span\u003e",
+         "files": {
+            "source_file": {
+               "file": "StackTraceServlet_Test04.java",
+               "upload_file": "StackTraceServlet_Test04.java",
+               "line": 13,
+               "function_name": "doGet",
+               "qualified_function_name": "StackTraceServlet_Test04.doGet",
+               "function_prototype": "void doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)",
+               "scope": "StackTraceServlet_Test04"
+            }
+         },
+         "flaw_match": {
+            "procedure_hash": "1306352513",
+            "prototype_hash": "2795236909",
+            "flaw_hash": "3765405848",
+            "flaw_hash_count": 1,
+            "flaw_hash_ordinal": 1,
+            "cause_hash": "153293750",
+            "cause_hash_count": 1,
+            "cause_hash_ordinal": 1,
+            "cause_hash2": "1522093433",
+            "cause_hash2_ordinal": "2"
+         },
+         "stack_dumps": {
+            "stack_dump": [
+               {
+                  "Frame": [
+                     {
+                        "FrameId": "0",
+                        "FunctionName": "doGet",
+                        "SourceFile": "StackTraceServlet_Test04.java",
+                        "SourceLine": "12",
+                        "SourceFileId": "5",
+                        "StatementText": {},
+                        "QualifiedFunctionName": "StackTraceServlet_Test04.doGet",
+                        "FunctionPrototype": "void doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)",
+                        "RelativeLocation": "85"
+                     },
+                     {
+                        "FrameId": "1",
+                        "FunctionName": "doGet",
+                        "SourceFile": "StackTraceServlet_Test04.java",
+                        "SourceLine": "12",
+                        "SourceFileId": "5",
+                        "StatementText": {},
+                        "VarNames": "/**X-VC scoperef targetid=\"40199\" */e/**X-VC /scoperef */.printStackTrace(/**X-VC scoperef targetid=\"10115\" */response/**X-VC /scoperef */.getWriter())",
+                        "QualifiedFunctionName": "StackTraceServlet_Test04.doGet",
+                        "FunctionPrototype": "void doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)",
+                        "RelativeLocation": "85"
+                     }
+                  ]
+               }
+            ]
+         },
+         "flaw_details_link": "https://downloads.veracode.com/securityscan/cwe/v4/java/209.html"
+      },
+      {
+         "title": "java.lang.Throwable.printStackTrace",
+         "issue_id": 1000,
+         "image_path": "file:/tmp/tmpslyp5c17/binary/java-cwe209-combined-1.0-SNAPSHOT.jar#zip:StackTraceServlet_Test01",
+         "gob": "B",
+         "severity": 2,
+         "issue_type_id": "taint",
+         "issue_type": "Information Exposure Through an Error Message",
+         "cwe_id": "209",
+         "exploit_level": "0",
+         "display_text": "\u003cspan\u003e The application calls the java.lang.Throwable.printStackTrace() function, which may expose information about the application logic or other details such as the names and versions of the application container and associated components.  This information can be useful in executing other attacks and can also enable the attacker to target known vulnerabilities in application components. printStackTrace() was called on the e object, which contains data from an error message (possibly containing untrusted data). The data from an error message (possibly containing untrusted data) originated from an earlier call to java.lang.Throwable.printStackTrace. The data from an error message (possibly containing untrusted data) is directed into an output stream returned by jakarta.servlet.ServletResponse.getWriter.\u003c/span\u003e \u003cspan\u003eEnsure that error codes or other messages returned to end users are not overly verbose.  Sanitize all messages of any sensitive information that is not absolutely necessary.\u003c/span\u003e \u003cspan\u003eReferences: \u003ca href=\"https://cwe.mitre.org/data/definitions/209.html\"\u003eCWE-209\u003c/a\u003e\u003c/span\u003e",
+         "files": {
+            "source_file": {
+               "file": "StackTraceServlet_Test01.java",
+               "upload_file": "StackTraceServlet_Test01.java",
+               "line": 13,
+               "function_name": "doGet",
+               "qualified_function_name": "StackTraceServlet_Test01.doGet",
+               "function_prototype": "void doGet(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse)",
+               "scope": "StackTraceServlet_Test01"
+            }
+         },
+         "flaw_match": {
+            "procedure_hash": "1697794415",
+            "prototype_hash": "2944025611",
+            "flaw_hash": "3765405848",
+            "flaw_hash_count": 1,
+            "flaw_hash_ordinal": 1,
+            "cause_hash": "153293750",
+            "cause_hash_count": 1,
+            "cause_hash_ordinal": 1,
+            "cause_hash2": "1522093433",
+            "cause_hash2_ordinal": "2"
+         },
+         "stack_dumps": {
+            "stack_dump": [
+               {
+                  "Frame": [
+                     {
+                        "FrameId": "0",
+                        "FunctionName": "doGet",
+                        "SourceFile": "StackTraceServlet_Test01.java",
+                        "SourceLine": "12",
+                        "SourceFileId": "4",
+                        "StatementText": {},
+                        "QualifiedFunctionName": "StackTraceServlet_Test01.doGet",
+                        "FunctionPrototype": "void doGet(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse)",
+                        "RelativeLocation": "91"
+                     },
+                     {
+                        "FrameId": "1",
+                        "FunctionName": "doGet",
+                        "SourceFile": "StackTraceServlet_Test01.java",
+                        "SourceLine": "12",
+                        "SourceFileId": "4",
+                        "StatementText": {},
+                        "VarNames": "/**X-VC scoperef targetid=\"40403\" */e/**X-VC /scoperef */.printStackTrace(/**X-VC scoperef targetid=\"9964\" */resp/**X-VC /scoperef */.getWriter())",
+                        "QualifiedFunctionName": "StackTraceServlet_Test01.doGet",
+                        "FunctionPrototype": "void doGet(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse)",
+                        "RelativeLocation": "91"
+                     }
+                  ]
+               }
+            ]
+         },
+         "flaw_details_link": "https://downloads.veracode.com/securityscan/cwe/v4/java/209.html"
+      },
+      {
+         "title": "java.io.PrintWriter.println",
+         "issue_id": 1003,
+         "image_path": "file:/tmp/tmpslyp5c17/binary/java-cwe209-combined-1.0-SNAPSHOT.jar#zip:JsonServlet_Test03",
+         "gob": "B",
+         "severity": 2,
+         "issue_type_id": "taint",
+         "issue_type": "Information Exposure Through an Error Message",
+         "cwe_id": "209",
+         "exploit_level": "0",
+         "display_text": "\u003cspan\u003e The application calls the java.io.PrintWriter.println() function, which may expose information about the application logic or other details such as the names and versions of the application container and associated components.  This information can be useful in executing other attacks and can also enable the attacker to target known vulnerabilities in application components. The first argument to println() contains data from an error message (possibly containing untrusted data). The data from an error message (possibly containing untrusted data) originated from earlier calls to java.lang.NullPointerException.getMessage, and java.lang.Throwable.getMessage.\u003c/span\u003e \u003cspan\u003eEnsure that error codes or other messages returned to end users are not overly verbose.  Sanitize all messages of any sensitive information that is not absolutely necessary.\u003c/span\u003e \u003cspan\u003eReferences: \u003ca href=\"https://cwe.mitre.org/data/definitions/209.html\"\u003eCWE-209\u003c/a\u003e\u003c/span\u003e",
+         "files": {
+            "source_file": {
+               "file": "JsonServlet_Test03.java",
+               "upload_file": "JsonServlet_Test03.java",
+               "line": 15,
+               "function_name": "doPost",
+               "qualified_function_name": "JsonServlet_Test03.doPost",
+               "function_prototype": "void doPost(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse)",
+               "scope": "JsonServlet_Test03"
+            }
+         },
+         "flaw_match": {
+            "procedure_hash": "645038324",
+            "prototype_hash": "2632280722",
+            "flaw_hash": "1324245500",
+            "flaw_hash_count": 1,
+            "flaw_hash_ordinal": 1,
+            "cause_hash": "837665757",
+            "cause_hash_count": 1,
+            "cause_hash_ordinal": 1,
+            "cause_hash2": "2110327140",
+            "cause_hash2_ordinal": "1"
+         },
+         "stack_dumps": {
+            "stack_dump": [
+               {
+                  "Frame": [
+                     {
+                        "FrameId": "0",
+                        "FunctionName": "doPost",
+                        "SourceFile": "JsonServlet_Test03.java",
+                        "SourceLine": "14",
+                        "SourceFileId": "3",
+                        "StatementText": {},
+                        "VarNames": "!jdk11_concat(\"JSON parse failed: \\u0001\", /**X-VC scoperef targetid=\"40729\" */e/**X-VC /scoperef */.getMessage())",
+                        "QualifiedFunctionName": "JsonServlet_Test03.doPost",
+                        "FunctionPrototype": "void doPost(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse)",
+                        "RelativeLocation": "91"
+                     },
+                     {
+                        "FrameId": "1",
+                        "FunctionName": "doPost",
+                        "SourceFile": "JsonServlet_Test03.java",
+                        "SourceLine": "14",
+                        "SourceFileId": "3",
+                        "StatementText": {},
+                        "VarNames": "/**X-VC scoperef targetid=\"40729\" */e/**X-VC /scoperef */.getMessage()",
+                        "QualifiedFunctionName": "JsonServlet_Test03.doPost",
+                        "FunctionPrototype": "void doPost(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse)",
+                        "RelativeLocation": "91"
+                     }
+                  ]
+               }
+            ]
+         },
+         "flaw_details_link": "https://downloads.veracode.com/securityscan/cwe/v4/java/209.html"
+      },
+      {
+         "title": "java.io.PrintWriter.println",
+         "issue_id": 1002,
+         "image_path": "file:/tmp/tmpslyp5c17/binary/java-cwe209-combined-1.0-SNAPSHOT.jar#zip:AuthServlet_Test02",
+         "gob": "B",
+         "severity": 2,
+         "issue_type_id": "taint",
+         "issue_type": "Information Exposure Through an Error Message",
+         "cwe_id": "209",
+         "exploit_level": "0",
+         "display_text": "\u003cspan\u003e The application calls the java.io.PrintWriter.println() function, which may expose information about the application logic or other details such as the names and versions of the application container and associated components.  This information can be useful in executing other attacks and can also enable the attacker to target known vulnerabilities in application components. The first argument to println() contains data from an error message (possibly containing untrusted data). The data from an error message (possibly containing untrusted data) originated from an earlier call to java.lang.Throwable.getMessage.\u003c/span\u003e \u003cspan\u003eEnsure that error codes or other messages returned to end users are not overly verbose.  Sanitize all messages of any sensitive information that is not absolutely necessary.\u003c/span\u003e \u003cspan\u003eReferences: \u003ca href=\"https://cwe.mitre.org/data/definitions/209.html\"\u003eCWE-209\u003c/a\u003e\u003c/span\u003e",
+         "files": {
+            "source_file": {
+               "file": "AuthServlet_Test02.java",
+               "upload_file": "AuthServlet_Test02.java",
+               "line": 17,
+               "function_name": "doPost",
+               "qualified_function_name": "AuthServlet_Test02.doPost",
+               "function_prototype": "void doPost(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse)",
+               "scope": "AuthServlet_Test02"
+            }
+         },
+         "flaw_match": {
+            "procedure_hash": "1625677409",
+            "prototype_hash": "2235450909",
+            "flaw_hash": "3099829825",
+            "flaw_hash_count": 1,
+            "flaw_hash_ordinal": 1,
+            "cause_hash": "2915667152",
+            "cause_hash_count": 1,
+            "cause_hash_ordinal": 1,
+            "cause_hash2": "4186200973",
+            "cause_hash2_ordinal": "1"
+         },
+         "stack_dumps": {
+            "stack_dump": [
+               {
+                  "Frame": [
+                     {
+                        "FrameId": "0",
+                        "FunctionName": "doPost",
+                        "SourceFile": "AuthServlet_Test02.java",
+                        "SourceLine": "16",
+                        "SourceFileId": "2",
+                        "StatementText": {},
+                        "VarNames": "!jdk11_concat(\"Authentication failed: \\u0001\", /**X-VC scoperef targetid=\"37515\" */e/**X-VC /scoperef */.getMessage())",
+                        "QualifiedFunctionName": "AuthServlet_Test02.doPost",
+                        "FunctionPrototype": "void doPost(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse)",
+                        "RelativeLocation": "95"
+                     },
+                     {
+                        "FrameId": "1",
+                        "FunctionName": "doPost",
+                        "SourceFile": "AuthServlet_Test02.java",
+                        "SourceLine": "16",
+                        "SourceFileId": "2",
+                        "StatementText": {},
+                        "VarNames": "/**X-VC scoperef targetid=\"37515\" */e/**X-VC /scoperef */.getMessage()",
+                        "QualifiedFunctionName": "AuthServlet_Test02.doPost",
+                        "FunctionPrototype": "void doPost(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse)",
+                        "RelativeLocation": "95"
+                     }
+                  ]
+               }
+            ]
+         },
+         "flaw_details_link": "https://downloads.veracode.com/securityscan/cwe/v4/java/209.html"
+      }
+   ],
+   "selected_modules": []
+}
