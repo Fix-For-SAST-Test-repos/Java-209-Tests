@@ -1,140 +1,72 @@
-# Java CWE-209 Combined Test Suite
+# VeraDemo - Blab-a-Gag
 
-## Overview
-This consolidated folder contains all 5 Java CWE-209 (Information Exposure Through an Error Message) test cases combined into a single project structure with one unified pom.xml file.
+### Notice
 
-## Consolidation Details
+This project is intentionally vulnerable! It contains known vulnerabilities and security errors in its code and is meant as an example project for software security scanning tools such as Veracode. Please do not report vulnerabilities in this project; the odds are they’re there on purpose :) .
 
-### Before
-- `java-cwe209-01/` with pom.xml (Jakarta Servlet, SLF4J)
-- `java-cwe209-02/` with pom.xml (Jakarta Servlet)
-- `java-cwe209-03/` with pom.xml (Jakarta Servlet, Jackson, Spring)
-- `java-cwe209-04/` with pom.xml (Javax Servlet)
-- `java-cwe209-05/` with pom.xml (Javax Servlet)
+## About
 
-Each had its own duplicate pom.xml file and used different servlet APIs.
+Blab-a-Gag is a fairly simple forum type application which allows:
 
-### After
-- `java-cwe209-combined/` - Single folder with one pom.xml file
-  - `pom.xml` - Consolidated Maven configuration with all dependencies
-  - `src/main/java/`
-    - `StackTraceServlet_Test01.java` - Stack trace exposure via exception
-    - `AuthServlet_Test02.java` - Security exception message exposure
-    - `JsonServlet_Test03.java` - JSON parsing error message exposure
-    - `StackTraceServlet_Test04.java` - Stack trace from division by zero
-    - `SystemPropertyServlet_Test05.java` - Runtime exception message exposure
+- Users can post a one-liner joke.
+- Users can follow the jokes of other users or not (listen or ignore).
+- Users can comment on other users messages (heckle).
 
-## Key Changes
+### URLs
 
-✅ **Single pom.xml file** - Unified dependencies for all servlet APIs and frameworks
-✅ **Unified folder structure** - All tests under one parent directory
-✅ **Clear naming convention** - Each Java class named with `_Test0X` suffix
-✅ **Multi-API support** - Includes both javax.servlet and jakarta.servlet
+- `/feed` shows the jokes/heckles that are relevant to the current user.
+- `/blabbers` shows a list of all other users and allows the current user to listen or ignore.
+- `/profile` allows the current user to modify their profile.
+- `/login` allows you to log in to your account
+- `/register` allows you to create a new user account
+- `/tools` shows a tools page that shows a fortune or lets you ping a host.
 
-## File Structure
+## Run
 
-```
-java-cwe209-combined/
-├── pom.xml
-├── README.md
-└── src/main/java/
-    ├── StackTraceServlet_Test01.java
-    ├── AuthServlet_Test02.java
-    ├── JsonServlet_Test03.java
-    ├── StackTraceServlet_Test04.java
-    └── SystemPropertyServlet_Test05.java
-```
+If you don't already have Docker this is a prerequisite.
 
-## Maven Configuration
+    docker run -p 8080:8080 veracode/vulnerable-verademo-java
 
-The `pom.xml` includes unified dependencies for:
-- **Servlet API (javax)** - For Tests 04, 05
-- **Servlet API (jakarta)** - For Tests 01, 02, 03
-- **SLF4J** - For logging support
-- **Jackson** - For JSON parsing in Test 03
-- **Spring Web** - For utility functions in Test 03
+Navigate to: `http://127.0.0.1:8080`.
 
-## Usage
+## Exploitation Demos
 
-To compile all test cases:
-```bash
-cd java-cwe209-combined
-mvn clean compile
-```
+See the [DEMO_NOTES](DEMO_NOTES.md) file for information on using this application with the various Veracode scan types.
 
-To package all test cases:
-```bash
-mvn clean package
-```
+Also see the `docs` folder for in-depth explanations of the various exploits exposed in this application.
 
-## Test Case Descriptions
+## CI System Demos
 
-| Test | Class | Servlet API | Vulnerability Type | Exception Type |
-|------|-------|-------------|--------------------|-----------------|
-| 01 | StackTraceServlet_Test01 | Jakarta | Stack trace exposure | ArithmeticException |
-| 02 | AuthServlet_Test02 | Jakarta | Security exception message | SecurityException |
-| 03 | JsonServlet_Test03 | Jakarta | JSON parse error message | Exception (Jackson) |
-| 04 | StackTraceServlet_Test04 | Javax | Stack trace exposure | ArithmeticException |
-| 05 | SystemPropertyServlet_Test05 | Javax | Runtime error message | RuntimeException |
+There are build files for various CI systems included as part of this application. Often there are several sample build files for each CI system, but there will always be at least an 'essentials' file that shows the basic steps to get the application packaged and scanned with Veracode's technology.
 
-## CWE-209 Vulnerability Details
+Note that there are some secrets that need to get set in the build files. These might vary a bit between CI systems, but generally:
 
-**CWE-209: Information Exposure Through an Error Message**
+- `VERACODE_API_ID` & `VERACODE_API_KEY`: The API credentials of the Veracode user account used to run the scan. See [here](https://docs.veracode.com/r/c_api_credentials3).
+- `SRCCLR_API_TOKEN`: The token needed for the agent-based SCA scanner. See [here](https://docs.veracode.com/r/Integrate_Veracode_SCA_Agent_Based_Scanning_with_Your_CI_Projects).
 
-All 5 test cases demonstrate information exposure vulnerabilities where exception messages, stack traces, or sensitive error information are exposed to users/clients. This can reveal:
-- Internal application structure
-- Framework and library versions
-- Database structure and details
-- File paths and server configuration
-- Other sensitive system information
+| CI System     | "Essentials" File                                                  |
+| ------------- | ------------------------------------------------------------------ |
+| GitHub        | `.github/workflows/the-essentials.yml`                             |
+| Azure Dev Ops | `azure-pipelines.yml`                                              |
+| Jenkins       | `Jenkinsfile`                                                      |
+| GitLab        | `.gitlab-ci.yml`                                                   |
+| AWS           | `AWS-CodeStar.md` (directions for configuring AWS CodeStar builds) |
+| BitBucket     | `bitbucket-pipelines.yml`                                          |
 
-### Common Attack Patterns
+## Technologies Used
 
-**Stack Trace Exposure:**
-```java
-catch (Exception e) {
-    e.printStackTrace(resp.getWriter());  // CWE-209: Exposes full stack trace
-}
-```
+- Spring boot
+- MariaDB
 
-**Error Message Exposure:**
-```java
-catch (Exception e) {
-    resp.getWriter().println("Error: " + e.getMessage());  // CWE-209: May expose sensitive info
-}
-```
+## Development
 
-### Real-World Impact
-- **Information Disclosure:** Attackers learn about technology stack
-- **Security Through Obscurity Failure:** Hides implementation details
-- **Compliance Issues:** May violate data protection regulations
-- **Attack Surface Expansion:** Reveals potential attack vectors
+To build the container run this:
 
-## Migration Notes
+    docker pull mariadb:10.6.2
+    docker build --no-cache -t verademo .
 
-- All test files maintain their original vulnerability patterns
-- Class names have been updated to match filenames for Java compilation standards
-- The consolidated pom.xml includes dependencies for both Servlet APIs (javax and jakarta)
-- Different servlet APIs are used across tests to demonstrate multi-API error exposure
+To run the container for local development run this:
 
-## Build Verification
+    docker run --rm -p 8080:8080 --name verademo verademo
 
-✅ **All 5 Java files compile successfully**
-✅ **JAR artifact generated**: `java-cwe209-combined-1.0-SNAPSHOT.jar`
-✅ **All classes included in artifact**
-
-## Scanning with Veracode
-
-To scan this consolidated test suite with Veracode CLI:
-
-```bash
-# From the test_cases directory
-./veracode_QA_patch package \
-  --source java-cwe209-combined \
-  --type directory
-```
-
-Expected Results:
-- 5 HIGH severity CWE-209 issues detected
-- Multiple issues per test class (exception handling points)
-- Typically located in catch blocks where exceptions are output
+Then register as a new user and add some feeds
